@@ -1,0 +1,6 @@
+@ChessApp.Backend_HostAddress = http://localhost:5057
+
+GET {{ChessApp.Backend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

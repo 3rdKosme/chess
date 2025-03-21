@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "ztSk14/9+pXqluaYwHIs4hVZUTm09SJqZMUxyArBmCQ=",
+  "Source": "ChessApp.Backend",
+  "BasePath": "_content/ChessApp.Backend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
