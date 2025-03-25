@@ -1,11 +1,39 @@
 using ChessApp.Backend.Data;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models; 
+using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(
     builder.Configuration.GetConnectionString("DefaultConnection")));
+var secretKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY");
+if (string.IsNullOrEmpty(secretKey))
+{
+    throw new InvalidOperationException("JWT_SECRET_KEY is not set in environment variables.");
+}
+
+var key = Encoding.ASCII.GetBytes(secretKey);
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+});
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -27,6 +55,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

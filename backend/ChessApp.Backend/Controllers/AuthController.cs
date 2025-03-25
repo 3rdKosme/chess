@@ -2,7 +2,12 @@ using Microsoft.AspNetCore.Mvc;
 using ChessApp.Backend.Data;
 using ChessApp.Backend.Models;
 using System.Security.Cryptography;
+using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Identity.Data;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ChessApp.Backend.Controllers
 {
@@ -41,7 +46,47 @@ namespace ChessApp.Backend.Controllers
             return Ok(new { message = "User registered successfully." });
         }
 
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] LoginRequest request)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Email == request.Email);
+            if(user == null || !VerifyPassword(request.Password, user.PasswordHash))
+            {
+                return Unauthorized("Invalid email or password.");
+            }
+            var token = GenerateJwtToken(user);
 
+            return Ok(new { token });
+        }
+
+        private string GenerateJwtToken(User user)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            string? secretKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY");
+            if (string.IsNullOrEmpty(secretKey))
+            {
+                throw new InvalidOperationException("JWT_SECRET_KEY not found in your OS!");
+            }
+            var key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET_KEY"));
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.Username)
+                }),
+                Expires = DateTime.UtcNow.AddHours(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
+
+        private bool VerifyPassword(string password, string storedHash)
+        {
+            var hash = HashPassword(password);
+            return hash == storedHash;
+        }
         private string HashPassword(string password)
         {
             using var sha256 = SHA256.Create();
