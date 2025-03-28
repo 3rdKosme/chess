@@ -1,5 +1,4 @@
 F:\VisualStudioProjects\Chess\chess\backend\ChessApp.Backend\bin\Debug\net9.0\appsettings.Development.json
-F:\VisualStudioProjects\Chess\chess\backend\ChessApp.Backend\bin\Debug\net9.0\appsettings.json
 F:\VisualStudioProjects\Chess\chess\backend\ChessApp.Backend\bin\Debug\net9.0\ChessApp.Backend.staticwebassets.endpoints.json
 F:\VisualStudioProjects\Chess\chess\backend\ChessApp.Backend\bin\Debug\net9.0\ChessApp.Backend.exe
 F:\VisualStudioProjects\Chess\chess\backend\ChessApp.Backend\bin\Debug\net9.0\ChessApp.Backend.deps.json
@@ -141,3 +140,6 @@ F:\VisualStudioProjects\Chess\chess\backend\ChessApp.Backend\bin\Debug\net9.0\Mi
 F:\VisualStudioProjects\Chess\chess\backend\ChessApp.Backend\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 F:\VisualStudioProjects\Chess\chess\backend\ChessApp.Backend\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
 F:\VisualStudioProjects\Chess\chess\backend\ChessApp.Backend\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
+F:\VisualStudioProjects\Chess\chess\backend\ChessApp.Backend\bin\Debug\net9.0\appsettings.json
+F:\VisualStudioProjects\Chess\chess\backend\ChessApp.Backend\bin\Debug\net9.0\Newtonsoft.Json.dll
+F:\VisualStudioProjects\Chess\chess\backend\ChessApp.Backend\bin\Debug\net9.0\System.Net.WebSockets.WebSocketProtocol.dll

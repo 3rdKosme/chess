@@ -5,24 +5,18 @@
 namespace ChessApp.Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class SecondInit : Migration
+    public partial class ThirdUpdate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "HashPassword",
-                table: "Users",
-                newName: "PasswordHash");
+
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "PasswordHash",
-                table: "Users",
-                newName: "HashPassword");
+
         }
     }
 }

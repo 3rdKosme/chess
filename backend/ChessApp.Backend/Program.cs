@@ -1,4 +1,5 @@
 using ChessApp.Backend.Data;
+using ChessApp.Backend.Hubs;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +18,17 @@ if (string.IsNullOrEmpty(secretKey))
 }
 
 var key = Encoding.ASCII.GetBytes(secretKey);
-
+builder.Services.AddSignalR();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin", builder =>
+    {
+        builder.WithOrigins("http://localhost:3000") // Укажите конкретный origin
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials(); // Разрешите учетные данные
+    });
+});
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -43,7 +54,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
-
+app.UseCors("AllowSpecificOrigin"); // Добавьте middleware для CORS
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -58,5 +69,6 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.MapHub<GameHub>("/gamehub");
 app.Run();
 

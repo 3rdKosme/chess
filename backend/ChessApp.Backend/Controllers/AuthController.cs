@@ -67,7 +67,8 @@ namespace ChessApp.Backend.Controllers
             {
                 throw new InvalidOperationException("JWT_SECRET_KEY not found in your OS!");
             }
-            var key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET_KEY"));
+            
+            var key = Encoding.ASCII.GetBytes(secretKey);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
@@ -98,8 +99,8 @@ namespace ChessApp.Backend.Controllers
 
     public class RegisterRequest
     {
-        public string Username { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
+        public required string Username { get; set; }
+        public required string Email { get; set; }
+        public required string Password { get; set; }
     }
 }
