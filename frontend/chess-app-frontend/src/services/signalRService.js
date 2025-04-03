@@ -7,6 +7,11 @@ export const startSignalRConnection = (gameId, updateBoard) => {
         console.error("Cannot start SignalR connection: gameID is null");
         return Promise.reject("gameID is null");
     }
+
+    if(connection){
+        console.warn("SignalR connection is already exist. Skipping...");
+        return Promise.resolve();
+    }
     connection = new HubConnectionBuilder().withUrl('http://localhost:5057/gamehub').build();
 
     connection.on("ReceiveMove", (move) => {
@@ -17,7 +22,12 @@ export const startSignalRConnection = (gameId, updateBoard) => {
 
     return connection.start().then(() => {
         console.log("Connected to SignalR hub");
-        return connection.invoke("JoinGame", gameId)
+        if(connection.state === "Connected"){
+            return connection.invoke("JoinGame", gameId);
+        } else{
+            throw new Error("SignalR connecton is not in the 'Connected' state!");
+        }
+        
     }).catch(err => {
         console.error("Error starting SignalR connection:", err);
         throw err;

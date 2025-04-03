@@ -26,10 +26,11 @@ namespace ChessApp.Backend.Controllers
         [HttpPost("create")]
         public IActionResult CreateGame()
         {
+            Console.WriteLine("CreateGame() method called.");
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             if (userIdClaim == null || string.IsNullOrEmpty(userIdClaim.Value))
             {
-                return Unauthorized("User ID not found.");
+                return Unauthorized("User ID not found or token is invalid.");
             }
             var userId = int.Parse(userIdClaim.Value);
 
