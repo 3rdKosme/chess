@@ -3,6 +3,7 @@ import { Chessboard } from 'react-chessboard';
 
 const ChessboardComponent = ({ onMove }) => {
     const [ position, setPosition ] = useState('start');
+    console.log("Current position: ", position);
     
     const onDrop = useCallback((sourceSquare, targetSquare) => {
         

@@ -84,7 +84,7 @@
               "RelativeDocumentMoniker": "Controllers\\GameController.cs",
               "ToolTip": "F:\\VisualStudioProjects\\Chess\\chess\\backend\\ChessApp.Backend\\Controllers\\GameController.cs",
               "RelativeToolTip": "Controllers\\GameController.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAewB8AAABKAAAAAAAAAA==",
+              "ViewState": "AgIAABcAAAAAAAAAAAAewCcAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-25T12:21:21.542Z",
               "EditorCaption": ""
@@ -99,8 +99,7 @@
               "RelativeToolTip": "Hubs\\GameHub.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-25T13:49:09.039Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-25T13:49:09.039Z"
             },
             {
               "$type": "Document",
@@ -112,8 +111,7 @@
               "RelativeToolTip": "Models\\User.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T19:54:23.968Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-24T19:54:23.968Z"
             },
             {
               "$type": "Document",
@@ -173,8 +171,7 @@
               "RelativeToolTip": "Controllers\\AuthController.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAEUAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T19:47:12.375Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-24T19:47:12.375Z"
             },
             {
               "$type": "Document",
