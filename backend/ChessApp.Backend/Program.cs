@@ -23,11 +23,12 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin", builder =>
     {
-        builder.WithOrigins("http://localhost:3000") // Укажите конкретный origin
+        builder.WithOrigins("http://localhost:3000", "http://192.168.1.127:3000") // Укажите конкретный origin
                .AllowAnyMethod()
                .AllowAnyHeader()
                .AllowCredentials(); // Разрешите учетные данные
     });
+    
 });
 builder.Services.AddAuthentication(options =>
 {
@@ -51,6 +52,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "ChessApp API", Version = "v1" });
 });
+builder.WebHost.UseUrls("http://0.0.0.0:5057");
 builder.Services.AddOpenApi();
 
 var app = builder.Build();

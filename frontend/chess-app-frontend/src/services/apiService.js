@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-    baseURL: 'http://localhost:5057/api',
+    baseURL: 'http://192.168.1.127:5057/api',
     headers: {
         'Content-Type': 'application/json'
     }
@@ -54,9 +54,15 @@ export const createGame = () => {
 };
 
 export const joinGame = (gameId) => {
-    return apiClient.post(`/game/join/${gameId}`);
+    return apiClient.post(`/game/join/${gameId}`).then(response => {
+        console.log(`Joined game with id=${gameId} successfully: `, response.data);
+        return response;
+    }).catch(err => {
+        console.error("Error on joining game: ", err);
+        throw err;
+    });
 };
 
-export const makeMove = (gameId, move) => {
-    return apiClient.post(`/game/move/${gameId}`, { move });
+export const makeMove = (gameId, move, fen) => {
+    return apiClient.post(`/game/move/${gameId}`, { Move: move, ClientFen: fen });
 };

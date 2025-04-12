@@ -143,3 +143,5 @@ F:\VisualStudioProjects\Chess\chess\backend\ChessApp.Backend\bin\Debug\net9.0\Sy
 F:\VisualStudioProjects\Chess\chess\backend\ChessApp.Backend\bin\Debug\net9.0\appsettings.json
 F:\VisualStudioProjects\Chess\chess\backend\ChessApp.Backend\bin\Debug\net9.0\Newtonsoft.Json.dll
 F:\VisualStudioProjects\Chess\chess\backend\ChessApp.Backend\bin\Debug\net9.0\System.Net.WebSockets.WebSocketProtocol.dll
+F:\VisualStudioProjects\Chess\chess\backend\ChessApp.Backend\bin\Debug\net9.0\Ardalis.SmartEnum.dll
+F:\VisualStudioProjects\Chess\chess\backend\ChessApp.Backend\bin\Debug\net9.0\ChessLibrary.dll

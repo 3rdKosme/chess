@@ -1,12 +1,27 @@
 import React, { useState } from 'react';
-import { registerUser } from '../services/apiService';
+import { registerUser, loginUser } from '../services/apiService';
+import { AuthContext } from '../AuthContext'
 
 const RegisterPage = () => {
     const [formData, setFormData] = useState({ username: '', email: '', password: ''});
-
+    const [credentials, setCredentials] = useState({ email: '', password: ''});
+    const { login } = useState(AuthContext);
+    
     const handleSubmit = (e) => {
         e.preventDefault();
-        registerUser(formData).then(() => alert('User registered successfully!')).catch(err => console.error(err));
+        registerUser(formData).then(() => {
+            alert('User registered successfully!');
+            
+        }).catch(err => console.error(err));
+        setCredentials({ ...credentials, email: formData.email, password: formData.password});
+        loginUser(credentials).then(response => {
+
+                    const token = response.data.token;
+
+                    login({ ...credentials, token});
+                    alert('Logged in successfully!');
+                }).catch(err => console.error(err));
+        
     };
 
     return (

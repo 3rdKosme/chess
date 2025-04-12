@@ -21,8 +21,8 @@ const LoginPage = () => {
             <h2>Login</h2>
             <form onSubmit={handleSubmit}>
                 <input
-                    type="email"
-                    placeholder="Email"
+                    type="username"
+                    placeholder="Username"
                     value={credentials.email}
                     onChange={(e) => setCredentials({ ...credentials, email: e.target.value})}
                 /><br/>

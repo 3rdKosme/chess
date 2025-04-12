@@ -33,15 +33,20 @@ namespace ChessApp.Backend.Migrations
                     b.Property<int>("BlackPlayerId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("GameState")
+                    b.Property<string>("Fen")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsFinished")
-                        .HasColumnType("boolean");
+                    b.Property<string>("Pgn")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("TypeOfEnd")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("WhitePlayerId")
                         .HasColumnType("integer");

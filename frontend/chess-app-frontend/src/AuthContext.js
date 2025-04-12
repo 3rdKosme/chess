@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
     const login = (userData) => {
         const userWithUsername = {
             ...userData,
-            username: userData.email.split('@')[0]
+            username: userData.email
         };
         console.log("Logging in user:", userWithUsername);
         setUser(userWithUsername);

@@ -4,9 +4,19 @@ namespace ChessApp.Backend.Hubs
 {
     public class GameHub : Hub
     {
-        public async Task SendMove(string gameId, string move)
+        public async Task SendMove(string gameId, string move, string gameState)
         {
-            await Clients.Group(gameId).SendAsync("ReceiveMove", move);
+            //await Clients.OthersInGroup(gameId).SendAsync("ReceiveMove", move, gameState);
+            try
+            {
+                Console.WriteLine($"SendMove: GameId={gameId}, Move={move}");
+                await Clients.OthersInGroup(gameId).SendAsync("ReceiveMove", move, gameState);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка в SendMove: {ex.Message}");
+                throw;
+            }
         }
         public async Task JoinGame(string gameId)
         {

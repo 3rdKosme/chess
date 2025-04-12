@@ -12,11 +12,18 @@ export const startSignalRConnection = (gameId, updateBoard) => {
         console.warn("SignalR connection is already exist. Skipping...");
         return Promise.resolve();
     }
-    connection = new HubConnectionBuilder().withUrl('http://localhost:5057/gamehub').build();
+    connection = new HubConnectionBuilder().withUrl('http://192.168.1.127:5057/gamehub').build();
 
-    connection.on("ReceiveMove", (move) => {
-        console.log(`Received Move: ${move}`);
-        updateBoard(move);
+    connection.on("ReceiveMove", (move, gamestate) => {
+        try{
+            console.log(`Received Move: ${move}`);
+            console.log(`Current gameState: ${gamestate}`);
+            updateBoard(move, gamestate);
+        } catch (error) {
+            console.error("failed to apply move: ", error);
+            alert("Error occured");
+        }
+        
     });
 
 
@@ -32,16 +39,4 @@ export const startSignalRConnection = (gameId, updateBoard) => {
         console.error("Error starting SignalR connection:", err);
         throw err;
     });
-};
-
-export const sendMove = (gameId, move) => {
-    if (!connection || connection.state !== "Connected") {
-        console.error("SignalR connection is not in the 'Connected' state.");
-        return;
-    }
-    if (!gameId) {
-        console.error("Cannot send move: gameId is null.");
-        return;
-    }
-    connection.invoke("SendMove", gameId, move).catch(err => console.error(err));
 };

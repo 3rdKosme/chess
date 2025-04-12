@@ -43,23 +43,25 @@ namespace ChessApp.Backend.Controllers
             _context.Users.Add(user);
             _context.SaveChanges();
 
+            var token = GenerateJwtToken(user);
+
             return Ok(new { message = "User registered successfully." });
         }
 
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginRequest request)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Email == request.Email);
+            var user = _context.Users.FirstOrDefault(u => u.Username == request.Email); // request.Email because loginRequest doesnt have username
             if(user == null || !VerifyPassword(request.Password, user.PasswordHash))
             {
-                return Unauthorized("Invalid email or password.");
+                return Unauthorized("Invalid username or password.");
             }
             var token = GenerateJwtToken(user);
 
             return Ok(new { token });
         }
 
-        private string GenerateJwtToken(User user)
+        private static string GenerateJwtToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             string? secretKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY");
@@ -88,7 +90,7 @@ namespace ChessApp.Backend.Controllers
             var hash = HashPassword(password);
             return hash == storedHash;
         }
-        private string HashPassword(string password)
+        private static string HashPassword(string password)
         {
             using var sha256 = SHA256.Create();
             var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
