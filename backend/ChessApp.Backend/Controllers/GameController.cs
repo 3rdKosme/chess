@@ -41,7 +41,7 @@ namespace ChessApp.Backend.Controllers
                 BlackPlayerId = 0,
                 Fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
                 StartTime = DateTime.UtcNow,
-                Pgn = "",
+                Pgn = "1.",
                 TypeOfEnd = "none"
             };
 
@@ -164,14 +164,18 @@ namespace ChessApp.Backend.Controllers
             //    Console.WriteLine($"Client gamestate: {request.ClientFen}\nServer gamestate: {game.Fen}");
             //    return BadRequest("GameStates doesnt match!");
             //}
-            var move = new Models.Move
-            {
-                GameId = id,
-                MoveData = request.Move,
-                Timestamp = DateTime.UtcNow
-            };
             
-            _context.Moves.Add(move);
+            var pgn = game.Pgn;
+            if( pgn.Split(" ").Length % 3 == 0)
+            {
+                pgn += $" {parts1[5]}. {request.Move}";
+            } else
+            {
+                pgn += $" {request.Move}";
+            }
+            game.Pgn = pgn;
+            
+            
             _context.SaveChanges();
 
             await _hubContext.Clients.Group(id.ToString()).SendAsync("ReceiveMove", request.Move, game.Fen);

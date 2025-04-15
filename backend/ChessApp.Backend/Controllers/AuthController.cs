@@ -52,6 +52,10 @@ namespace ChessApp.Backend.Controllers
         public IActionResult Login([FromBody] LoginRequest request)
         {
             var user = _context.Users.FirstOrDefault(u => u.Username == request.Email); // request.Email because loginRequest doesnt have username
+            
+            user ??= _context.Users.FirstOrDefault(u => u.Email == request.Email);  // you can login by username or email
+            
+            
             if(user == null || !VerifyPassword(request.Password, user.PasswordHash))
             {
                 return Unauthorized("Invalid username or password.");
@@ -78,7 +82,7 @@ namespace ChessApp.Backend.Controllers
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.Username)
                 }),
-                Expires = DateTime.UtcNow.AddHours(1),
+                Expires = DateTime.UtcNow.AddHours(4),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
