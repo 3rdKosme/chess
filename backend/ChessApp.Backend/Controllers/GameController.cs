@@ -163,20 +163,21 @@ namespace ChessApp.Backend.Controllers
                 if (parts1[1] == "w")
                 {
                     game.BlackTime -=  (int)(DateTime.UtcNow - game.LastMoveTime).TotalSeconds;
-                    Console.WriteLine($"UtcNow: {DateTime.UtcNow}\nLastMoveTime: {game.LastMoveTime}/nDelta: {DateTime.UtcNow - game.LastMoveTime}");
+                    
                     game.LastMoveTime = DateTime.UtcNow;
                     playerTime = game.BlackTime;
-                    Console.WriteLine($"Black time changes to {game.BlackTime}");
+                    
                 }
                 else
                 {
                     game.WhiteTime -= (int)(DateTime.UtcNow - game.LastMoveTime).TotalSeconds;
-                    Console.WriteLine($"UtcNow: {DateTime.UtcNow}\nLastMoveTime: {game.LastMoveTime}/nDelta: {DateTime.UtcNow - game.LastMoveTime}");
+                    
                     game.LastMoveTime = DateTime.UtcNow;
                     playerTime = game.WhiteTime;
-                    Console.WriteLine($"White time changes to {game.WhiteTime}");
+                    
                 }
             }
+
             for(int i = 0; i < 6; i++)
             {
                 if (i == 3) continue;
