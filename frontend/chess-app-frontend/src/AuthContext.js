@@ -21,6 +21,7 @@ export const AuthProvider = ({ children }) => {
                 }
             } catch (error){
                 console.error(`Error on parsing user from localstorage ${error}`);
+                localStorage.removeItem('user');
             }
         }
         setLoading(false);
@@ -41,6 +42,10 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
         localStorage.removeItem('user');
     };
+
+    if(loading){
+        return <div>Loading...</div>;
+    }
 
     return (
         <AuthContext.Provider value={{user, loading, login, logout}}>

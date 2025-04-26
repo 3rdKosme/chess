@@ -23,7 +23,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin", builder =>
     {
-        builder.WithOrigins("http://localhost:3000", "http://192.168.1.127:3000") // Укажите конкретный origin
+        builder.WithOrigins("http://localhost:3000", "http://172.17.77.114:3000") // Укажите конкретный origin
                .AllowAnyMethod()
                .AllowAnyHeader()
                .AllowCredentials(); // Разрешите учетные данные

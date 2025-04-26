@@ -33,16 +33,19 @@ namespace ChessApp.Backend.Migrations
                     b.Property<int>("BlackPlayerId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("BlackTime")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Fen")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("LastMoveTime")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Pgn")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("TypeOfEnd")
                         .IsRequired()
@@ -51,32 +54,12 @@ namespace ChessApp.Backend.Migrations
                     b.Property<int>("WhitePlayerId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("WhiteTime")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.ToTable("Games");
-                });
-
-            modelBuilder.Entity("ChessApp.Backend.Models.Move", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("GameId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("MoveData")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("Timestamp")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Moves");
                 });
 
             modelBuilder.Entity("ChessApp.Backend.Models.User", b =>

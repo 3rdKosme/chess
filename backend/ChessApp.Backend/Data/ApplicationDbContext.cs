@@ -10,8 +10,8 @@ namespace ChessApp.Backend.Data
         {
         }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Game> Games { get; set; }
-        public DbSet<Move> Moves { get; set; }
+        public required DbSet<User> Users { get; set; }
+        public required DbSet<Game> Games { get; set; }
+        
     }
 }

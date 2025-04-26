@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { Chess } from 'chess.js';
 import { Chessboard } from 'react-chessboard';
 import { startSignalRConnection } from '../services/signalRService';
@@ -11,29 +11,26 @@ const GamePage = () => {
     const [gameId, setGameId] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [gameState, setGameState] = useState(new Chess());
-    // const [whiteTime, setWhiteTime] = useState(600);
-    // const [blackTime, setBlackTime] = useState(600);
-    //const [currentPlayer, setCurrentPlayer] = useState('w');
     const [isCreatingGame, setIsCreatingGame] = useState(false);
     const [playerColor, setPlayerColor] = useState(null);
-    //const [prevMove, setPrevMove] = useState(null);
     const lastSentMoveRef = useRef({san: null, fen: null});
+    const [blackTime, setBlackTime] = useState(600);
+    const [whiteTime, setWhiteTime] = useState(600);
 
-    const handleMove = async (sourceSquare, targetSquare) => {
+    const handleMove = async (sourceSquare, targetSquare, piece) => {
         try{
             if(gameState.turn() !== playerColor){
                 alert("Not your turn!");
                 return false;
             }
-            // const moves = gameState.moves();
-            // if(moves.includes({}))
-            // console.log(moves);
-            //const gameCopy = new Chess(gameState.fen());
+            console.log(gameState.moves());
             const move = gameState.move({
                 from: sourceSquare,
                 to: targetSquare,
+                promotion: piece[1].toLowerCase(),
             });
             if(move){
+                
                 setGameState(new Chess(gameState.fen()));
                 console.log("updated fen after move:", gameState.fen());
                 lastSentMoveRef.current = {
@@ -43,9 +40,6 @@ const GamePage = () => {
                 
                 let answer = await makeMove(gameId, move.san, gameState.fen());
                 console.log(answer);
-                
-                //await sendMove(gameId, move.san);
-
                 return true;
             } else{
                 alert("Invalid move");
@@ -61,18 +55,28 @@ const GamePage = () => {
         }
     }
 
-    const handleOpponentMove = useCallback((move, gamestate) => {
+    
+
+    const handleOpponentMove = useCallback((move, gamestate, time) => {
+        console.log(`MEME: ${gamestate.split(' ')[1]}`);
+        
+        
+        if(gamestate.split(' ')[1] === "w"){
+            setBlackTime(time);
+        } else {
+            setWhiteTime(time);
+        }
+        
         if(move === lastSentMoveRef.current.san){
             console.log("Received my move");
+            
             lastSentMoveRef.current = { san: null, fen: null };
             return;
         }
+        
         console.log(`Received opponent move: ${move}`);
-        
-        console.log("current gameState from front: ", gameState.fen());
-        const gameCopy = new Chess(gamestate);
-        setGameState(gameCopy);
-        
+        //console.log("current gameState from front: ", gameState.fen());
+        setGameState(new Chess(gamestate));
     }, []);
 
       
@@ -125,26 +129,27 @@ const GamePage = () => {
         }
     };
 
+    
+
     // закомменчена пока не готовая часть с временем
 
-    // useEffect(() => {
-    //     let interval = null;
+    useEffect(() => {
+        let interval = null;
 
-    //     if(!isLoading && gameId){
-    //         interval = setInterval(() => {
-    //             if(currentPlayer === 'w'){
-    //                 setWhiteTime((prevTime) => prevTime - 1);
-    //             } else {
-    //                 setBlackTime((prevTime) => prevTime - 1);
-    //             }
-    //         }, 1000);
-    //     }
+        if(gameState.fen() !== "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"){
+            interval = setInterval(() => {
+                if(gameState.turn() === 'w'){
+                    setWhiteTime((prevTime) => prevTime - 1);
+                } else {
+                    setBlackTime((prevTime) => prevTime - 1);
+                }
+            }, 1000);
+        }
 
-    //     return () => clearInterval(interval);
-    // }, [currentPlayer, isLoading, gameId]);
+        return () => clearInterval(interval);
+    }, [gameState]);
 
-    const isCheckmate = gameState.isGameOver() && gameState.inCheck();
-    const isStalemate = gameState.isGameOver() && !gameState.inCheck();
+    
 
     return (
         <div>
@@ -155,19 +160,24 @@ const GamePage = () => {
                 <p>Loading game...</p>
             ) : gameId ? (
                 <div>
-                    {/* <div style={{ display: 'flex', justifyContent: 'space-around', marginBottom: '10px'}}>
+                    <div style={{ display: 'flex', justifyContent: 'space-around', marginBottom: '10px'}}>
                         <div>White Time: {Math.floor(whiteTime / 60)} : {String(whiteTime % 60).padStart(2, '0')}</div>
                         <div>Black Time: {Math.floor(blackTime / 60)} : {String(blackTime % 60).padStart(2, '0')}</div>
-                    </div> */}
+                    </div>
                     <Chessboard
+                        /*onPromotionPieceSelect={handlePromotion}*/
                         position={gameState.fen()}
                         onPieceDrop={handleMove} // Передаем функцию обработки ходов
                         boardOrientation={ playerColor === "w" ? 'white' : 'black'}
                         
                     />
                     <div>
-                        {isCheckmate && <p>Checkmate! Game over.</p>}
-                        {isStalemate && <p>Stalemate! Game over.</p>}
+                        {gameState.isCheckmate() && <p>Checkmate! Game over.</p>}
+                        {gameState.isStalemate() && <p>Stalemate! Game over.</p>}
+                        {gameState.isInsufficientMaterial() && <p>Insufficient material! Game over.</p>}
+                        {gameState.isThreefoldRepetition() && <p>Threefold repetitions! Game over.</p>}
+                        {gameState.isDrawByFiftyMoves() && <p>50 moves rule! Game over.</p>}
+                        
                     </div>
                 </div>
             ) : (

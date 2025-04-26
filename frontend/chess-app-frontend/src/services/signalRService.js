@@ -12,13 +12,15 @@ export const startSignalRConnection = (gameId, updateBoard) => {
         console.warn("SignalR connection is already exist. Skipping...");
         return Promise.resolve();
     }
-    connection = new HubConnectionBuilder().withUrl('http://192.168.1.127:5057/gamehub').build();
+    connection = new HubConnectionBuilder().withUrl('http://localhost:5057/gamehub').build();
 
-    connection.on("ReceiveMove", (move, gamestate) => {
+    connection.on("ReceiveMove", (move, gamestate, time) => {
         try{
+            
             console.log(`Received Move: ${move}`);
             console.log(`Current gameState: ${gamestate}`);
-            updateBoard(move, gamestate);
+            console.log(`Opponent time: ${time}`);
+            updateBoard(move, gamestate, time);
         } catch (error) {
             console.error("failed to apply move: ", error);
             alert("Error occured");

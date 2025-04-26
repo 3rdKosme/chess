@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ChessApp.Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdatedDatabase : Migration
+    public partial class InitialUpdate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,9 +20,12 @@ namespace ChessApp.Backend.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     WhitePlayerId = table.Column<int>(type: "integer", nullable: false),
                     BlackPlayerId = table.Column<int>(type: "integer", nullable: false),
-                    GameState = table.Column<string>(type: "text", nullable: false),
-                    StartTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    IsFinished = table.Column<bool>(type: "boolean", nullable: false)
+                    Fen = table.Column<string>(type: "text", nullable: false),
+                    LastMoveTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Pgn = table.Column<string>(type: "text", nullable: false),
+                    TypeOfEnd = table.Column<string>(type: "text", nullable: false),
+                    WhiteTime = table.Column<int>(type: "integer", nullable: false),
+                    BlackTime = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
