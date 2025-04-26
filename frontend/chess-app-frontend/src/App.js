@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from './AuthContext';
 import './index.css';
 import PrivateRoute from './components/PrivateRoute';
+import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
 import GamePage from './pages/GamePage';
 import RegisterPage from './pages/RegisterPage';
@@ -13,6 +14,7 @@ function App() {
         <AuthProvider>
         <Router>
             <div className="App">
+                <Navbar />
                 <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/login" element={<LoginPage />} />

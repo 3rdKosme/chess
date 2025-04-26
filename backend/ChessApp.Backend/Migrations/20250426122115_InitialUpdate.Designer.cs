@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ChessApp.Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250325141152_AddMoveModel")]
-    partial class AddMoveModel
+    [Migration("20250426122115_InitialUpdate")]
+    partial class InitialUpdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,45 +36,33 @@ namespace ChessApp.Backend.Migrations
                     b.Property<int>("BlackPlayerId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("GameState")
+                    b.Property<int>("BlackTime")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Fen")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsFinished")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime>("StartTime")
+                    b.Property<DateTime>("LastMoveTime")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Pgn")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("TypeOfEnd")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("WhitePlayerId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("WhiteTime")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.ToTable("Games");
-                });
-
-            modelBuilder.Entity("ChessApp.Backend.Models.Move", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("GameId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("MoveData")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("Timestamp")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Moves");
                 });
 
             modelBuilder.Entity("ChessApp.Backend.Models.User", b =>

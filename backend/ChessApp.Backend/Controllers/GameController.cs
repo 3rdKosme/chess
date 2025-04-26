@@ -23,6 +23,8 @@ namespace ChessApp.Backend.Controllers
             _hubContext = hubContext;
         }
 
+        
+
         [Authorize]
         [HttpPost("create")]
         public IActionResult CreateGame()
@@ -40,9 +42,12 @@ namespace ChessApp.Backend.Controllers
                 WhitePlayerId = 0,
                 BlackPlayerId = 0,
                 Fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
-                StartTime = DateTime.UtcNow,
+                
+                LastMoveTime = DateTime.UtcNow,
                 Pgn = "1.",
-                TypeOfEnd = "none"
+                TypeOfEnd = "none",
+                BlackTime = 600,
+                WhiteTime = 600
             };
 
             _context.Games.Add(game);
@@ -147,7 +152,31 @@ namespace ChessApp.Backend.Controllers
 
             var parts1 = game.Fen.Split(" ");
             var parts2 = request.ClientFen.Split(" ");
-
+            int playerTime;
+            if (parts1[5] == "1")
+            {
+                Console.WriteLine("Game Started");
+                playerTime = 600;
+            }
+            else
+            {
+                if (parts1[1] == "w")
+                {
+                    game.BlackTime -=  (int)(DateTime.UtcNow - game.LastMoveTime).TotalSeconds;
+                    Console.WriteLine($"UtcNow: {DateTime.UtcNow}\nLastMoveTime: {game.LastMoveTime}/nDelta: {DateTime.UtcNow - game.LastMoveTime}");
+                    game.LastMoveTime = DateTime.UtcNow;
+                    playerTime = game.BlackTime;
+                    Console.WriteLine($"Black time changes to {game.BlackTime}");
+                }
+                else
+                {
+                    game.WhiteTime -= (int)(DateTime.UtcNow - game.LastMoveTime).TotalSeconds;
+                    Console.WriteLine($"UtcNow: {DateTime.UtcNow}\nLastMoveTime: {game.LastMoveTime}/nDelta: {DateTime.UtcNow - game.LastMoveTime}");
+                    game.LastMoveTime = DateTime.UtcNow;
+                    playerTime = game.WhiteTime;
+                    Console.WriteLine($"White time changes to {game.WhiteTime}");
+                }
+            }
             for(int i = 0; i < 6; i++)
             {
                 if (i == 3) continue;
@@ -158,12 +187,12 @@ namespace ChessApp.Backend.Controllers
                     return BadRequest("GameStates doesnt match!");
                 }
             }
-            //if(request.ClientFen != game.Fen)
-            //{
-            //    Console.WriteLine($"SAN error, FEN gamestates doesnt match!");
-            //    Console.WriteLine($"Client gamestate: {request.ClientFen}\nServer gamestate: {game.Fen}");
-            //    return BadRequest("GameStates doesnt match!");
-            //}
+
+            if (board.EndGame != null)
+            {
+                game.TypeOfEnd = $"{board.EndGame.WonSide}-{board.EndGame.EndgameType}";
+                Console.WriteLine($"Game Over. Type: {board.EndGame.EndgameType}. Winner side: {board.EndGame.WonSide}");
+            }
             
             var pgn = game.Pgn;
             if( pgn.Split(" ").Length % 3 == 0)
@@ -176,11 +205,12 @@ namespace ChessApp.Backend.Controllers
             game.Pgn = pgn;
             
             
+            
             _context.SaveChanges();
 
-            await _hubContext.Clients.Group(id.ToString()).SendAsync("ReceiveMove", request.Move, game.Fen);
+            await _hubContext.Clients.Group(id.ToString()).SendAsync("ReceiveMove", request.Move, game.Fen, playerTime);
                 
-            return Ok(new { message = "Move made successfully." });
+            return Ok(new { message = "Move made successfully.", time = playerTime });
         }
 
     }
