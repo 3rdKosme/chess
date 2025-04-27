@@ -7,6 +7,14 @@
       "RelativeMoniker": "D:0:0:{5F5C364F-92D9-466D-9A9A-32CB2FE098A7}|ChessApp.Backend.csproj|solutionrelative:controllers\\gamecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{5F5C364F-92D9-466D-9A9A-32CB2FE098A7}|ChessApp.Backend.csproj|f:\\visualstudioprojects\\chess\\chess\\backend\\chessapp.backend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F5C364F-92D9-466D-9A9A-32CB2FE098A7}|ChessApp.Backend.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F5C364F-92D9-466D-9A9A-32CB2FE098A7}|ChessApp.Backend.csproj|f:\\visualstudioprojects\\chess\\chess\\backend\\chessapp.backend\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F5C364F-92D9-466D-9A9A-32CB2FE098A7}|ChessApp.Backend.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5F5C364F-92D9-466D-9A9A-32CB2FE098A7}|ChessApp.Backend.csproj|f:\\visualstudioprojects\\chess\\chess\\backend\\chessapp.backend\\models\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5F5C364F-92D9-466D-9A9A-32CB2FE098A7}|ChessApp.Backend.csproj|solutionrelative:models\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -19,20 +27,8 @@
       "RelativeMoniker": "D:0:0:{5F5C364F-92D9-466D-9A9A-32CB2FE098A7}|ChessApp.Backend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5F5C364F-92D9-466D-9A9A-32CB2FE098A7}|ChessApp.Backend.csproj|f:\\visualstudioprojects\\chess\\chess\\backend\\chessapp.backend\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5F5C364F-92D9-466D-9A9A-32CB2FE098A7}|ChessApp.Backend.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5F5C364F-92D9-466D-9A9A-32CB2FE098A7}|ChessApp.Backend.csproj|f:\\visualstudioprojects\\chess\\chess\\backend\\chessapp.backend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5F5C364F-92D9-466D-9A9A-32CB2FE098A7}|ChessApp.Backend.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{5F5C364F-92D9-466D-9A9A-32CB2FE098A7}|ChessApp.Backend.csproj|f:\\visualstudioprojects\\chess\\chess\\backend\\chessapp.backend\\hubs\\gamehub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5F5C364F-92D9-466D-9A9A-32CB2FE098A7}|ChessApp.Backend.csproj|solutionrelative:hubs\\gamehub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5F5C364F-92D9-466D-9A9A-32CB2FE098A7}|ChessApp.Backend.csproj|f:\\visualstudioprojects\\chess\\chess\\backend\\chessapp.backend\\models\\move.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5F5C364F-92D9-466D-9A9A-32CB2FE098A7}|ChessApp.Backend.csproj|solutionrelative:models\\move.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5F5C364F-92D9-466D-9A9A-32CB2FE098A7}|ChessApp.Backend.csproj|f:\\visualstudioprojects\\chess\\chess\\backend\\chessapp.backend\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -50,7 +46,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -78,7 +74,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "Program.cs",
               "DocumentMoniker": "F:\\VisualStudioProjects\\Chess\\chess\\backend\\ChessApp.Backend\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -86,32 +82,20 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAA8AAAAAAAAAAAAAABkAAABKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-25T10:00:08.608Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-25T10:00:08.608Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Move.cs",
-              "DocumentMoniker": "F:\\VisualStudioProjects\\Chess\\chess\\backend\\ChessApp.Backend\\Models\\Move.cs",
-              "RelativeDocumentMoniker": "Models\\Move.cs",
-              "ToolTip": "F:\\VisualStudioProjects\\Chess\\chess\\backend\\ChessApp.Backend\\Models\\Move.cs",
-              "RelativeToolTip": "Models\\Move.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-25T14:06:46.956Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "AuthController.cs",
               "DocumentMoniker": "F:\\VisualStudioProjects\\Chess\\chess\\backend\\ChessApp.Backend\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
               "ToolTip": "F:\\VisualStudioProjects\\Chess\\chess\\backend\\ChessApp.Backend\\Controllers\\AuthController.cs",
               "RelativeToolTip": "Controllers\\AuthController.cs",
-              "ViewState": "AgIAAE4AAAAAAAAAAAAUwDUAAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAB0AAAAAAAAAAADwvzUAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T19:47:12.375Z"
+              "WhenOpened": "2025-03-24T19:47:12.375Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -121,14 +105,14 @@
               "RelativeDocumentMoniker": "Controllers\\GameController.cs",
               "ToolTip": "F:\\VisualStudioProjects\\Chess\\chess\\backend\\ChessApp.Backend\\Controllers\\GameController.cs",
               "RelativeToolTip": "Controllers\\GameController.cs",
-              "ViewState": "AgIAAMIAAAAAAAAAAAAmwNcAAAAxAAAAAAAAAA==",
+              "ViewState": "AgIAAL8AAAAAAAAAAAAmwNAAAACNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-25T12:21:21.542Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "ChessApp.Backend.csproj",
               "DocumentMoniker": "F:\\VisualStudioProjects\\Chess\\chess\\backend\\ChessApp.Backend\\ChessApp.Backend.csproj",
               "RelativeDocumentMoniker": "ChessApp.Backend.csproj",
@@ -136,24 +120,24 @@
               "RelativeToolTip": "ChessApp.Backend.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-03-25T12:59:23.153Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-25T12:59:23.153Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "F:\\VisualStudioProjects\\Chess\\chess\\backend\\ChessApp.Backend\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
               "ToolTip": "F:\\VisualStudioProjects\\Chess\\chess\\backend\\ChessApp.Backend\\Data\\ApplicationDbContext.cs",
               "RelativeToolTip": "Data\\ApplicationDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAkAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwA0AAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-25T14:10:13.663Z"
+              "WhenOpened": "2025-03-25T14:10:13.663Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Game.cs",
               "DocumentMoniker": "F:\\VisualStudioProjects\\Chess\\chess\\backend\\ChessApp.Backend\\Models\\Game.cs",
               "RelativeDocumentMoniker": "Models\\Game.cs",
@@ -161,8 +145,7 @@
               "RelativeToolTip": "Models\\Game.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwAwAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-25T12:20:33.771Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-25T12:20:33.771Z"
             },
             {
               "$type": "Document",
@@ -178,7 +161,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 8,
               "Title": "appsettings.json",
               "DocumentMoniker": "F:\\VisualStudioProjects\\Chess\\chess\\backend\\ChessApp.Backend\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
@@ -190,7 +173,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "User.cs",
               "DocumentMoniker": "F:\\VisualStudioProjects\\Chess\\chess\\backend\\ChessApp.Backend\\Models\\User.cs",
               "RelativeDocumentMoniker": "Models\\User.cs",

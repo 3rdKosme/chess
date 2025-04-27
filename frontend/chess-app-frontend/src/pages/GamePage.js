@@ -16,6 +16,7 @@ const GamePage = () => {
     const lastSentMoveRef = useRef({san: null, fen: null});
     const [blackTime, setBlackTime] = useState(600);
     const [whiteTime, setWhiteTime] = useState(600);
+    const [boardSize, setBoardSize] = useState(400);
 
     const handleMove = async (sourceSquare, targetSquare, piece) => {
         try{
@@ -45,8 +46,6 @@ const GamePage = () => {
                 alert("Invalid move");
                 return false;
             }
-            
-            
 
         } catch (error) {
             console.log("Catched error on handleMove: ", error);
@@ -55,12 +54,8 @@ const GamePage = () => {
         }
     }
 
-    
-
     const handleOpponentMove = useCallback((move, gamestate, time) => {
-        console.log(`MEME: ${gamestate.split(' ')[1]}`);
-        
-        
+
         if(gamestate.split(' ')[1] === "w"){
             setBlackTime(time);
         } else {
@@ -75,7 +70,6 @@ const GamePage = () => {
         }
         
         console.log(`Received opponent move: ${move}`);
-        //console.log("current gameState from front: ", gameState.fen());
         setGameState(new Chess(gamestate));
     }, []);
 
@@ -102,6 +96,7 @@ const GamePage = () => {
         } catch (err) {
            console.error("Error initializing the game or SignalR connection: ", err);
         } finally{
+            setIsCreatingGame(false);
             setIsLoading(false);
         }
     };
@@ -128,11 +123,7 @@ const GamePage = () => {
             setIsLoading(false);
         }
     };
-
-    
-
-    // закомменчена пока не готовая часть с временем
-
+    // time management
     useEffect(() => {
         let interval = null;
 
@@ -149,6 +140,15 @@ const GamePage = () => {
         return () => clearInterval(interval);
     }, [gameState]);
 
+    // useEffect(() => {
+    //     const updateSize = () => {
+    //         const size = Math.min(window.innerHeight, window.innerHeight) * 0.9;
+    //         setBoardSize(size);
+    //     }
+    //     updateSize();
+    //     window.addEventListener('resize', updateSize);
+    //     return () => window.removeEventListener('resize', updateSize);
+    // }, []);
     
 
     return (
@@ -159,27 +159,101 @@ const GamePage = () => {
             {isLoading ? (
                 <p>Loading game...</p>
             ) : gameId ? (
-                <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-around', marginBottom: '10px'}}>
-                        <div>White Time: {Math.floor(whiteTime / 60)} : {String(whiteTime % 60).padStart(2, '0')}</div>
-                        <div>Black Time: {Math.floor(blackTime / 60)} : {String(blackTime % 60).padStart(2, '0')}</div>
-                    </div>
-                    <Chessboard
-                        /*onPromotionPieceSelect={handlePromotion}*/
-                        position={gameState.fen()}
-                        onPieceDrop={handleMove} // Передаем функцию обработки ходов
-                        boardOrientation={ playerColor === "w" ? 'white' : 'black'}
+                // <div>
+                //     <div style={{ display: 'flex', justifyContent: 'space-around', marginBottom: '10px'}}>
+                //         <div>White Time: {Math.floor(whiteTime / 60)} : {String(whiteTime % 60).padStart(2, '0')}</div>
+                //         <div>Black Time: {Math.floor(blackTime / 60)} : {String(blackTime % 60).padStart(2, '0')}</div>
+                //     </div>
+                //     <div style={{
+                //         width: `${boardSize}px`,
+                //         height: `${boardSize}px`,
+                //         margin: "0 auto",
+                //         display: "flex",
+                //         justifyContent: "center",
+                //         alignItems: "center"
+                //     }}>
+                //         <Chessboard
+                //         position={gameState.fen()}
+                //         onPieceDrop={handleMove}
+                //         boardOrientation={ playerColor === "w" ? 'white' : 'black'}
+                //         boardWidth={boardSize}
+                //         />
+                //     </div>
+                    
+                //     <div>
+                //         {gameState.isCheckmate() && <p>Checkmate! Game over.</p>}
+                //         {gameState.isStalemate() && <p>Stalemate! Game over.</p>}
+                //         {gameState.isInsufficientMaterial() && <p>Insufficient material! Game over.</p>}
+                //         {gameState.isThreefoldRepetition() && <p>Threefold repetitions! Game over.</p>}
+                //         {gameState.isDrawByFiftyMoves() && <p>50 moves rule! Game over.</p>}
                         
-                    />
-                    <div>
+                //     </div>
+                // </div>
+                <div style={{
+                    height: '80vh',
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '10px',
+                    boxSizing: 'border-box',
+                }}>
+                    {/* timers */}
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-around',
+                        width: '100%',
+                        marginBottom: '10px',
+                        fontSize: '20px',
+                    }}>
+                        <div>{playerColor === "b" ? Math.floor(whiteTime / 60) : Math.floor(blackTime / 60)}:{playerColor === "b" ? String(whiteTime % 60).padStart(2, '0') : String(blackTime % 60).padStart(2, '0')}</div>
+                    </div>
+                
+                    {/* Board Container */}
+                    <div style={{
+                        flexGrow: 1,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: '100%',
+                    }}>
+                        <div style={{
+                            height: '100%',
+                            aspectRatio: '1 / 1',
+                            maxWidth: '100%',
+                        }}>
+                            <Chessboard
+                                position={gameState.fen()}
+                                onPieceDrop={handleMove}
+                                boardOrientation={playerColor === "w" ? 'white' : 'black'}
+                            />
+                        </div>
+                    </div>
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-around',
+                        width: '100%',
+                        marginBottom: '10px',
+                        fontSize: '20px',
+                    }}>
+                        <div>{playerColor === "w" ? Math.floor(whiteTime / 60) : Math.floor(blackTime / 60)}:{playerColor === "w" ? String(whiteTime % 60).padStart(2, '0') : String(blackTime % 60).padStart(2, '0')}</div>
+                    </div>
+                
+                    {/* Endgame messages */}
+                    <div style={{
+                        marginTop: '10px',
+                        textAlign: 'center',
+                        fontSize: '18px',
+                    }}>
                         {gameState.isCheckmate() && <p>Checkmate! Game over.</p>}
                         {gameState.isStalemate() && <p>Stalemate! Game over.</p>}
                         {gameState.isInsufficientMaterial() && <p>Insufficient material! Game over.</p>}
                         {gameState.isThreefoldRepetition() && <p>Threefold repetitions! Game over.</p>}
                         {gameState.isDrawByFiftyMoves() && <p>50 moves rule! Game over.</p>}
-                        
                     </div>
                 </div>
+                
             ) : (
                 <div>
                     
