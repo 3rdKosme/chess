@@ -16,7 +16,6 @@ const GamePage = () => {
     const lastSentMoveRef = useRef({san: null, fen: null});
     const [blackTime, setBlackTime] = useState(600);
     const [whiteTime, setWhiteTime] = useState(600);
-    const [boardSize, setBoardSize] = useState(400);
 
     const handleMove = async (sourceSquare, targetSquare, piece) => {
         try{
@@ -140,17 +139,6 @@ const GamePage = () => {
         return () => clearInterval(interval);
     }, [gameState]);
 
-    // useEffect(() => {
-    //     const updateSize = () => {
-    //         const size = Math.min(window.innerHeight, window.innerHeight) * 0.9;
-    //         setBoardSize(size);
-    //     }
-    //     updateSize();
-    //     window.addEventListener('resize', updateSize);
-    //     return () => window.removeEventListener('resize', updateSize);
-    // }, []);
-    
-
     return (
         <div>
             <h2>Game Page</h2>
@@ -159,88 +147,97 @@ const GamePage = () => {
             {isLoading ? (
                 <p>Loading game...</p>
             ) : gameId ? (
-                // <div>
-                //     <div style={{ display: 'flex', justifyContent: 'space-around', marginBottom: '10px'}}>
-                //         <div>White Time: {Math.floor(whiteTime / 60)} : {String(whiteTime % 60).padStart(2, '0')}</div>
-                //         <div>Black Time: {Math.floor(blackTime / 60)} : {String(blackTime % 60).padStart(2, '0')}</div>
-                //     </div>
-                //     <div style={{
-                //         width: `${boardSize}px`,
-                //         height: `${boardSize}px`,
-                //         margin: "0 auto",
-                //         display: "flex",
-                //         justifyContent: "center",
-                //         alignItems: "center"
-                //     }}>
-                //         <Chessboard
-                //         position={gameState.fen()}
-                //         onPieceDrop={handleMove}
-                //         boardOrientation={ playerColor === "w" ? 'white' : 'black'}
-                //         boardWidth={boardSize}
-                //         />
-                //     </div>
-                    
-                //     <div>
-                //         {gameState.isCheckmate() && <p>Checkmate! Game over.</p>}
-                //         {gameState.isStalemate() && <p>Stalemate! Game over.</p>}
-                //         {gameState.isInsufficientMaterial() && <p>Insufficient material! Game over.</p>}
-                //         {gameState.isThreefoldRepetition() && <p>Threefold repetitions! Game over.</p>}
-                //         {gameState.isDrawByFiftyMoves() && <p>50 moves rule! Game over.</p>}
-                        
-                //     </div>
-                // </div>
+
                 <div style={{
                     height: '80vh',
                     width: '100%',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    justifyContent: 'space-between',
                     padding: '10px',
                     boxSizing: 'border-box',
                 }}>
-                    {/* timers */}
+                    {/* Opponent */}
                     <div style={{
-                        display: 'flex',
-                        justifyContent: 'space-around',
                         width: '100%',
+                        maxWidth: '900px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
                         marginBottom: '10px',
                         fontSize: '20px',
                     }}>
-                        <div>{playerColor === "b" ? Math.floor(whiteTime / 60) : Math.floor(blackTime / 60)}:{playerColor === "b" ? String(whiteTime % 60).padStart(2, '0') : String(blackTime % 60).padStart(2, '0')}</div>
-                    </div>
-                
-                    {/* Board Container */}
-                    <div style={{
-                        flexGrow: 1,
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        width: '100%',
-                    }}>
-                        <div style={{
-                            height: '100%',
-                            aspectRatio: '1 / 1',
-                            maxWidth: '100%',
-                        }}>
-                            <Chessboard
-                                position={gameState.fen()}
-                                onPieceDrop={handleMove}
-                                boardOrientation={playerColor === "w" ? 'white' : 'black'}
-                            />
+                        <div>Opponent ({playerColor === "w" ? "Black" : "White"})</div>
+                        <div>
+                            {playerColor === "b" 
+                                ? `${Math.floor(whiteTime / 60)}:${String(whiteTime % 60).padStart(2, '0')}`
+                                : `${Math.floor(blackTime / 60)}:${String(blackTime % 60).padStart(2, '0')}`
+                            }
                         </div>
                     </div>
+                
+                    {/* Main block(board+PGN) */}
                     <div style={{
-                        display: 'flex',
-                        justifyContent: 'space-around',
+                        flexGrow: 1,
                         width: '100%',
-                        marginBottom: '10px',
-                        fontSize: '20px',
+                        maxWidth: '900px',
+                        display: 'flex',
+                        gap: '10px',
                     }}>
-                        <div>{playerColor === "w" ? Math.floor(whiteTime / 60) : Math.floor(blackTime / 60)}:{playerColor === "w" ? String(whiteTime % 60).padStart(2, '0') : String(blackTime % 60).padStart(2, '0')}</div>
+                        {/* ChessBoard */}
+                        <div style={{
+                            flex: 1,
+                            backgroundColor: '#f0f0f0',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}>
+                            <div style={{
+                                width: '100%',
+                                height: '100%',
+                                maxWidth: '100%',
+                                maxHeight: '100%',
+                                aspectRatio: '1 / 1',
+                            }}>
+                                <Chessboard
+                                    position={gameState.fen()}
+                                    onPieceDrop={handleMove}
+                                    boardOrientation={playerColor === "w" ? 'white' : 'black'}
+                                />
+                            </div>
+                        </div>
+                
+                        {/* PGN block */}
+                        <div style={{
+                            flex: 1,
+                            backgroundColor: '#e0e0e0',
+                            padding: '10px',
+                            overflowY: 'auto',
+                        }}>
+                            {/* PGN */}
+                            Game ID to join: {gameId}<br/>
+                            PGN will be here
+                        </div>
                     </div>
                 
-                    {/* Endgame messages */}
+                    {/* Player block */}
+                    <div style={{
+                        width: '100%',
+                        maxWidth: '900px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        marginTop: '10px',
+                        fontSize: '20px',
+                    }}>
+                        <div>You ({playerColor === "w" ? "White" : "Black"})</div>
+                        <div>
+                            {playerColor === "w" 
+                                ? `${Math.floor(whiteTime / 60)}:${String(whiteTime % 60).padStart(2, '0')}`
+                                : `${Math.floor(blackTime / 60)}:${String(blackTime % 60).padStart(2, '0')}`
+                            }
+                        </div>
+                    </div>
+                
+                    {/* EndGame Messages */}
                     <div style={{
                         marginTop: '10px',
                         textAlign: 'center',
