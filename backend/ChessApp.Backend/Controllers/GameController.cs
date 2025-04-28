@@ -8,6 +8,8 @@ using ChessApp.Backend.Hubs;
 using Microsoft.AspNetCore.SignalR;
 using Chess;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
+using System.Security.AccessControl;
 
 namespace ChessApp.Backend.Controllers
 {
@@ -66,7 +68,7 @@ namespace ChessApp.Backend.Controllers
             }
             _context.SaveChanges();
             
-            return Ok(new { gameId = game.Id.ToString(), userTurn = userColor });
+            return Ok(new { gameId = game.Id.ToString(), userTurn = userColor, time = game.WhiteTime });
         }
 
         [Authorize]
@@ -80,11 +82,13 @@ namespace ChessApp.Backend.Controllers
             var userId = int.Parse(userIdClaim.Value);
 
             var game = _context.Games.FirstOrDefault(x => x.Id == id);
+
             if (game == null || (game.BlackPlayerId != 0 && game.WhitePlayerId != 0))
             {
                 return BadRequest("Unable to join the game");
             }
             string userColor;
+            
             if (game.WhitePlayerId != 0)
             {
                 game.BlackPlayerId = userId;
@@ -98,7 +102,7 @@ namespace ChessApp.Backend.Controllers
             _context.SaveChanges();
             
             
-            return Ok(new { message = "Joined the game successfully.", userTurn = (string)userColor });
+            return Ok(new { message = "Joined the game successfully.", userTurn = (string)userColor, time = game.BlackTime });
         }
 
         [Authorize]
@@ -163,7 +167,7 @@ namespace ChessApp.Backend.Controllers
             {
                 if (parts1[1] == "w")
                 {
-                    game.BlackTime -=  (int)(DateTime.UtcNow - game.LastMoveTime).TotalSeconds;
+                    game.BlackTime -=  (int)(DateTime.UtcNow - game.LastMoveTime).TotalSeconds + game.TimeIncrementAfterMove;
                     
                     game.LastMoveTime = DateTime.UtcNow;
                     playerTime = game.BlackTime;
@@ -171,7 +175,7 @@ namespace ChessApp.Backend.Controllers
                 }
                 else
                 {
-                    game.WhiteTime -= (int)(DateTime.UtcNow - game.LastMoveTime).TotalSeconds;
+                    game.WhiteTime -= (int)(DateTime.UtcNow - game.LastMoveTime).TotalSeconds + game.TimeIncrementAfterMove;
                     
                     game.LastMoveTime = DateTime.UtcNow;
                     playerTime = game.WhiteTime;
