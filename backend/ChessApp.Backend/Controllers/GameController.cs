@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ChessApp.Backend.Data;
+using ChessApp.Backend.Dictionaries;
 using System.Security.Claims;
 using ChessApp.Backend.Models;
 using ChessApp.Backend.Hubs;
@@ -22,12 +23,11 @@ namespace ChessApp.Backend.Controllers
             _context = context;
             _hubContext = hubContext;
         }
-
         
 
         [Authorize]
         [HttpPost("create")]
-        public IActionResult CreateGame()
+        public IActionResult CreateGame([FromBody] CreateRequest request)
         {
             Console.WriteLine("CreateGame() method called.");
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
@@ -42,12 +42,13 @@ namespace ChessApp.Backend.Controllers
                 WhitePlayerId = 0,
                 BlackPlayerId = 0,
                 Fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
-                
                 LastMoveTime = DateTime.UtcNow,
                 Pgn = "1.",
                 TypeOfEnd = "none",
-                BlackTime = 600,
-                WhiteTime = 600
+                BlackTime = TimeType.timeType[request.TimeType].Item1,
+                WhiteTime = TimeType.timeType[request.TimeType].Item1,
+                TimeIncrementAfterMove = TimeType.timeType[request.TimeType].Item2,
+                IsPrivate = request.IsPrivate
             };
 
             _context.Games.Add(game);
@@ -220,5 +221,11 @@ namespace ChessApp.Backend.Controllers
     {
         public required string Move { get; set; }
         public required string ClientFen { get; set; } 
+    }
+
+    public class CreateRequest
+    {
+        public required bool IsPrivate { get; set; }
+        public required int TimeType { get; set; }
     }
 }

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ChessApp.Backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+48008c0f8c6a21779848262147d40de4561f4108")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9d4ea25bbbd6c9aa0fc40b258af9a3d093669fcc")]
 [assembly: System.Reflection.AssemblyProductAttribute("ChessApp.Backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ChessApp.Backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
