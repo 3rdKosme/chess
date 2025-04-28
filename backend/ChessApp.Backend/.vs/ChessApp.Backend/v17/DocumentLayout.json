@@ -94,8 +94,7 @@
               "RelativeToolTip": "Controllers\\AuthController.cs",
               "ViewState": "AgIAAB0AAAAAAAAAAADwvzUAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T19:47:12.375Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-24T19:47:12.375Z"
             },
             {
               "$type": "Document",
@@ -144,8 +143,7 @@
               "RelativeToolTip": "Models\\Game.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwA0AAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-25T12:20:33.771Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-25T12:20:33.771Z"
             },
             {
               "$type": "Document",
@@ -181,8 +179,7 @@
               "RelativeToolTip": "Models\\User.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T19:54:23.968Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-24T19:54:23.968Z"
             }
           ]
         }

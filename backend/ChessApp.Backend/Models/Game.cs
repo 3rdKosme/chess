@@ -14,5 +14,7 @@ namespace ChessApp.Backend.Models
         public required string TypeOfEnd {  get; set; }
         public int WhiteTime { get; set; }
         public int BlackTime { get; set; }
+        public int TimeIncrementAfterMove { get; set; }
+        public bool IsPrivate { get; set; }
     }
 }
