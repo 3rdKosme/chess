@@ -7,16 +7,18 @@ import { createGame, makeMove, joinGame } from '../services/apiService';
 let isGameInitialized = false;
 
 const GamePage = () => {
-    const [inputGameId, setInputGameId] = useState('');
+    
     const [gameId, setGameId] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [gameState, setGameState] = useState(new Chess());
-    const [selectedTime, setSelectedTime] = useState(null);
     const [playerColor, setPlayerColor] = useState(null);
     const lastSentMoveRef = useRef({san: null, fen: null});
     const [blackTime, setBlackTime] = useState(null);
     const [whiteTime, setWhiteTime] = useState(null);
+
+    const [selectedTime, setSelectedTime] = useState(null);
     const [isPrivate, setIsPrivate] = useState(false);
+    const [inputGameId, setInputGameId] = useState('');
     
 
     const handleMove = async (sourceSquare, targetSquare, piece) => {
